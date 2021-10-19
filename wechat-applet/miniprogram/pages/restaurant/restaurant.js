@@ -1,11 +1,11 @@
-// miniprogram/pages/restaurant/restaurant.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+      backgroundColor: "#92a4b0",
+      fontColor: "white"
   },
 
   /**
