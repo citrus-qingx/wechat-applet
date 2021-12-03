@@ -1,10 +1,11 @@
 <!--miniprogram/pages/lottery/lottery.wxml-->
 <view id="lottery">
-  <view class="center" >这里是吃的</view>
+  <view class="center" >{{food}}</view>
   </view>
 
-<view id="botton" class="center">
-  <button type="botton" bindtap="clickButton" >今天吃什么呢</button>
+<view id="button" class="center">
+  <button type="button" bindtap="clickStartButton" >今天吃什么呢</button>
+  <button type="button" bindtap="clickStopButton" >就吃这个了</button>
 </view>
 
 <view id="restaurant">

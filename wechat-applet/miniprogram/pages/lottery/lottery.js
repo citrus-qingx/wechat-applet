@@ -1,5 +1,6 @@
 // miniprogram/pages/lottery/lottery.js
 Page({
+  
 
   /**
    * 页面的初始数据
@@ -28,6 +29,8 @@ Page({
       }
     ],
     checkedList:[],
+    food:"yummy",
+    interval:"",
     backgroundColor: "#92a4b0",
     fontColor: "white"
   },
@@ -35,10 +38,27 @@ Page({
   /**
    * button点击事件监听
    */
-  clickButton: function(e) {
-},
+  clickStartButton: function(e) {
+    var that = this;
+    var n = 20;
+    var arr = ["烤肉","火锅","生煎","蛋包饭","意大利面","锡纸烧"]
+    this.data.interval = setInterval(function(){
+      n--;
+      var num = Math.floor(Math.random()*arr.length);
+      var food = arr[num];
+      that.setData({
+        food:food,
+      })
+    },100)
+  },
 
-  /*复选框选中事件*/
+  clickStopButton:function(e){
+    clearInterval(this.data.interval);
+  },
+
+  /**
+   * 复选框选中事件
+   * */
   HandelItemChange(e){
     // 1 获取被选中的复选框的值
     const checkedList = e.detail.value;
