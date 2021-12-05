@@ -4,8 +4,7 @@
   </view>
 
 <view id="button" class="center">
-  <button type="button" bindtap="clickStartButton" >今天吃什么呢</button>
-  <button type="button" bindtap="clickStopButton" >就吃这个了</button>
+  <button type="button" bindtap="clickStartButton" >{{click}}</button>
 </view>
 
 <view id="restaurant">

@@ -31,6 +31,9 @@ Page({
     checkedList:[],
     food:"yummy",
     interval:"",
+    arr :[],
+    flag: true,
+    click: "今天吃什么呢 ？",
     backgroundColor: "#92a4b0",
     fontColor: "white"
   },
@@ -39,36 +42,82 @@ Page({
    * button点击事件监听
    */
   clickStartButton: function(e) {
+    console.log("click");
     var that = this;
-    var n = 20;
-    var arr = ["烤肉","火锅","生煎","蛋包饭","意大利面","锡纸烧"]
-    this.data.interval = setInterval(function(){
-      n--;
-      var num = Math.floor(Math.random()*arr.length);
-      var food = arr[num];
-      that.setData({
-        food:food,
-      })
-    },100)
-  },
+    var arr = ["yummy"];
 
-  clickStopButton:function(e){
-    clearInterval(this.data.interval);
+    // 读入数据库数据
+    const db = wx.cloud.database();
+    const food = db.collection('food');
+    const _ = db.command;
+    food.where({
+      // 在复选框选中范围中
+      location:_.in(this.data.checkedList),
+    })
+    .field({
+      _id:false,
+      name:true
+    })
+    .get({
+      success: function(res) {
+        console.log(res.data);
+        arr = res.data; 
+        that.setData({
+          arr: arr
+        })
+      }
+    })
+  
+    var flag = this.data.flag;
+    console.log(flag);
+    if(flag == true){
+      flag = false;
+    }else{
+      flag = true;
+    }
+    this.setData({
+      flag:flag
+    })
+    console.log(flag);
+
+    if(flag == false){
+        this.data.interval = setInterval(function(){
+        console.log(flag);
+        var num = Math.floor(Math.random()*that.data.arr.length);
+        var food = "";
+        if(that.data.arr != undefined && that.data.arr[num] != undefined){
+          food = that.data.arr[num].name;
+        }
+        that.setData({
+          food: food,
+          click: "就吃这个吧 !"
+        })
+      },100)
+    }else{
+      console.log("clear");
+      this.setData({
+        click: "今天吃什么呢 ？"
+      })
+      clearInterval(this.data.interval);
+    }
   },
 
   /**
    * 复选框选中事件
    * */
   HandelItemChange(e){
-    // 1 获取被选中的复选框的值
+    // 获取被选中的复选框的值
     const checkedList = e.detail.value;
+    this.setData({
+      checkedList:checkedList
+    })
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    
   },
 
   /**
