@@ -61,7 +61,7 @@ Page({
     .get({
       success: function(res) {
         console.log(res.data);
-        arr = res.data; //需修改
+        arr = res.data; 
         that.setData({
           arr: arr
         })
@@ -84,7 +84,10 @@ Page({
         this.data.interval = setInterval(function(){
         console.log(flag);
         var num = Math.floor(Math.random()*that.data.arr.length);
-        var food = that.data.arr[num].name;
+        var food = "";
+        if(that.data.arr != undefined && that.data.arr[num] != undefined){
+          food = that.data.arr[num].name;
+        }
         that.setData({
           food: food,
           click: "就吃这个吧 !"
