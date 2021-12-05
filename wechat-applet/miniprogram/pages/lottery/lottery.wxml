@@ -8,6 +8,8 @@
   </view>
 </view>
 
+<view class="bar" style="background: {{backgroundColor}};"></view>
+
 <view id="buttonBar" class="bar" style="background: {{backgroundColor}};">
   <view class="center">
     <button id="button" type="button" class="center" bindtap="clickStartButton" >
