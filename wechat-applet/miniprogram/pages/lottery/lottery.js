@@ -36,16 +36,17 @@ Page({
     click: " 试试运气！",
     backgroundColor: "#ffffff",
     fontColor: "white",
-    testPic: "/images/测试图片.jpg"
+    pic: "/images/EatSomething.jpg"
   },
 
   /**
    * button点击事件监听
    */
   clickStartButton: function(e) {
-    // console.log("click");
     var that = this;
-    // var arr = ["yummy"];
+    this.setData({
+      isLoading:true
+    })
 
     // 读入数据库数据
     const db = wx.cloud.database();
@@ -75,22 +76,27 @@ Page({
     })
 
     if(flag == false){
-        this.data.interval = setInterval(function(){
-        console.log(flag);
+      this.data.interval = setInterval(function(){
         var num = Math.floor(Math.random()*that.data.arr.length);
         var food = "";
-        if(that.data.arr != undefined && that.data.arr[num] != undefined){
-          food = that.data.arr[num].name;
+        if(that.data.arr == undefined || that.data.arr[num] == undefined){
+          that.setData({
+            click: "请稍等..."
+          })
+        }else{
+            that.setData({
+              pic:"/images/SearchingFood.png",
+              food: that.data.arr[num].name,
+              click: " 就吃这个吧 !"
+            })
         }
-        that.setData({
-          food: food,
-          click: " 就吃这个吧 !"
-        })
+        console.log("Here");
       },10)
     }else{
       console.log("clear");
       this.setData({
-        click: "  试试运气！"
+        pic:"/images/HaveDinner.jpg",
+        click: "  不满意，再来！"
       })
       clearInterval(this.data.interval);
     }
@@ -111,7 +117,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+
   },
 
   /**
