@@ -46,13 +46,30 @@ Page({
     var that = this;
     var arr = ["yummy"];
 
+    /**
+     * 读入restraurant选择框数据
+     */
+    if(typeof(getApp().globalData.disableBusiness)==="undefined"){
+      getApp().globalData.disableBusiness=[];
+    }
+    var a = getApp().globalData.disableBusiness[0];
+    var b = getApp().globalData.disableBusiness[1];
+    var c = getApp().globalData.disableBusiness[2];
+    var d = getApp().globalData.disableBusiness[3];
+    console.log(getApp().globalData.disableBusiness);
+
     // 读入数据库数据
     const db = wx.cloud.database();
     const food = db.collection('food');
     const _ = db.command;
+    
     food.where({
       // 在复选框选中范围中
       location:_.in(this.data.checkedList),
+      name: _.nin(a)
+      .and(_.nin(b))
+      .and(_.nin(c))
+      .and(_.nin(d)),
     })
     .field({
       _id:false,
@@ -61,6 +78,7 @@ Page({
     .get({
       success: function(res) {
         console.log(res.data);
+        console.log(a);
         arr = res.data; 
         that.setData({
           arr: arr
@@ -68,6 +86,7 @@ Page({
       }
     })
   
+    console.log(this.data.checkedList);
     var flag = this.data.flag;
     console.log(flag);
     if(flag == true){

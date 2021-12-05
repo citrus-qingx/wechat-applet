@@ -2,7 +2,7 @@
 App({
   globalData:{
     // 0 综合楼，1 竹园，2 海棠，3 丁香
-    disableBusiness:[]
+    disableBusiness:[Array("","")]
   },
 
   onLaunch: function () {
