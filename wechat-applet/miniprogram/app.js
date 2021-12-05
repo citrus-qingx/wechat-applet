@@ -1,5 +1,10 @@
 //app.js
 App({
+  globalData:{
+    // 0 综合楼，1 竹园，2 海棠，3 丁香
+    disableBusiness:[]
+  },
+
   onLaunch: function () {
     if (!wx.cloud) {
       console.error('请使用 2.2.3 或以上的基础库以使用云能力')

@@ -1,2 +1,19 @@
 <!--miniprogram/pages/lottery/lottery.wxml-->
-<text style="width: 750rpx; height: 53rpx; display: block; box-sizing: border-box; left: NaNrpx; top: NaNrpx">miniprogram/pages/lottery/lottery.wxml</text>
+<view id="lottery">
+  <view class="center" >{{food}}</view>
+  </view>
+
+<view id="button" class="center">
+  <button type="button" bindtap="clickStartButton" >今天吃什么呢</button>
+  <button type="button" bindtap="clickStopButton" >就吃这个了</button>
+</view>
+
+<view id="restaurant">
+  <view id="check" class="center">
+    <checkbox-group bindchange="HandelItemChange" >
+    <checkbox value="{{item.value}}" wx:for="{{list}}" wx:key="id">
+      {{item.name}}
+    </checkbox>
+    </checkbox-group>
+  </view>
+</view>

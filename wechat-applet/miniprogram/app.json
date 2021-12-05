@@ -32,14 +32,14 @@
             {
                 "pagePath": "pages/lottery/lottery",
                 "text": "lottery",
-                "iconPath": "",
-                "selectedIconPath": ""
+                "iconPath": "images/首页.png",
+                "selectedIconPath": "images/首页（选中）.png"
             },
             {
                 "pagePath": "pages/restaurant/restaurant",
                 "text": "restaurant",
-                "iconPath": "",
-                "selectedIconPath": ""
+                "iconPath": "images/我的.png",
+                "selectedIconPath": "images/我的（选中）.png"
             }
         ]
     },

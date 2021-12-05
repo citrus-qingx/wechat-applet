@@ -1,11 +1,67 @@
 // miniprogram/pages/lottery/lottery.js
 Page({
+  
 
   /**
    * 页面的初始数据
    */
   data: {
+    list:[
+      {
+        id:0,
+        name:"丁香",
+        value:"丁香"
+      },
+      {
+        id:1,
+        name:"海棠",
+        value:"海棠"
+      },
+      {
+        id:2,
+        name:"竹园",
+        value:"竹园"
+      },
+      {
+        id:3,
+        name:"综合楼",
+        value:"综合楼"
+      }
+    ],
+    checkedList:[],
+    food:"yummy",
+    interval:"",
+    backgroundColor: "#92a4b0",
+    fontColor: "white"
+  },
 
+  /**
+   * button点击事件监听
+   */
+  clickStartButton: function(e) {
+    var that = this;
+    var n = 20;
+    var arr = ["烤肉","火锅","生煎","蛋包饭","意大利面","锡纸烧"]
+    this.data.interval = setInterval(function(){
+      n--;
+      var num = Math.floor(Math.random()*arr.length);
+      var food = arr[num];
+      that.setData({
+        food:food,
+      })
+    },100)
+  },
+
+  clickStopButton:function(e){
+    clearInterval(this.data.interval);
+  },
+
+  /**
+   * 复选框选中事件
+   * */
+  HandelItemChange(e){
+    // 1 获取被选中的复选框的值
+    const checkedList = e.detail.value;
   },
 
   /**

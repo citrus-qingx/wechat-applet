@@ -17,6 +17,12 @@
                     "pathName": "pages/restaurant/restaurant",
                     "query": "",
                     "scene": null
+                },
+                {
+                    "name": "pages/restaurant/zongHeLou/zongHeLou",
+                    "pathName": "pages/restaurant/zongHeLou/zongHeLou",
+                    "query": "",
+                    "scene": null
                 }
             ]
         }
