@@ -29,13 +29,14 @@ Page({
       }
     ],
     checkedList:[],
-    food:"yummy",
+    food:"Emm..要吃什么捏",
     interval:"",
     arr :[],
     flag: true,
-    click: "今天吃什么呢 ？",
-    backgroundColor: "#92a4b0",
-    fontColor: "white"
+    click: " 试试运气！",
+    backgroundColor: "#ffffff",
+    fontColor: "white",
+    testPic: "/images/测试图片.jpg"
   },
 
   /**
@@ -109,13 +110,13 @@ Page({
         }
         that.setData({
           food: food,
-          click: "就吃这个吧 !"
+          click: " 就吃这个吧 !"
         })
       },100)
     }else{
       console.log("clear");
       this.setData({
-        click: "今天吃什么呢 ？"
+        click: "  试试运气！"
       })
       clearInterval(this.data.interval);
     }
