@@ -34,6 +34,8 @@ Page({
     arr :[],
     flag: true,
     click: " 试试运气！",
+    db_food:"",
+    _:"",
     backgroundColor: "#ffffff",
     fontColor: "white",
     testPic: "/images/测试图片.jpg"
@@ -43,28 +45,79 @@ Page({
    * button点击事件监听
    */
   clickStartButton: function(e) {
-    console.log("click");
+    //console.log("click");
+    var that = this;
+    //var db_food = this.data.db_food;
+    //var _ = this.data._;
+
+    //console.log(this.data.checkedList);
+    var flag = this.data.flag;
+    //console.log(flag);
+    if(flag == true){
+      flag = false;
+    }else{
+      flag = true;
+    }
+    this.setData({
+      flag:flag
+    })
+    //console.log(flag);
+
+    if(flag == false){
+        this.data.interval = setInterval(function(){
+        //console.log(flag);
+        //console.log(that.data.arr);
+        var num = Math.floor(Math.random()*that.data.arr.length);
+        var food = "";
+        if(that.data.arr != undefined && that.data.arr[num] != undefined){
+          food = that.data.arr[num].name;
+        }
+        that.setData({
+          food: food,
+          click: " 就吃这个吧 !"
+        })
+      },100)
+    }else{
+      //console.log("clear");
+      this.setData({
+        click: "  试试运气！"
+      })
+      clearInterval(this.data.interval);
+    }
+  },
+
+  /**
+   * 复选框选中事件
+   * */
+  HandelItemChange(e){
     var that = this;
     var arr = ["yummy"];
+    var db_food = this.data.db_food;
+    var _ = this.data._;
+
+    // 获取被选中的复选框的值
+    const checkedList = e.detail.value;
+    this.setData({
+      checkedList:checkedList
+    })
 
     /**
      * 读入restraurant选择框数据
      */
     if(typeof(getApp().globalData.disableBusiness)==="undefined"){
       getApp().globalData.disableBusiness=[];
+      getApp().globalData.disableBusiness[0] = [];
+      getApp().globalData.disableBusiness[1] = [];
+      getApp().globalData.disableBusiness[2] = [];
+      getApp().globalData.disableBusiness[3] = [];
     }
     var a = getApp().globalData.disableBusiness[0];
     var b = getApp().globalData.disableBusiness[1];
     var c = getApp().globalData.disableBusiness[2];
     var d = getApp().globalData.disableBusiness[3];
-    console.log(getApp().globalData.disableBusiness);
-
-    // 读入数据库数据
-    const db = wx.cloud.database();
-    const food = db.collection('food');
-    const _ = db.command;
+    //console.log(getApp().globalData.disableBusiness);
     
-    food.where({
+    db_food.where({
       // 在复选框选中范围中
       location:_.in(this.data.checkedList),
       name: _.nin(a)
@@ -78,58 +131,14 @@ Page({
     })
     .get({
       success: function(res) {
-        console.log(res.data);
-        console.log(a);
-        arr = res.data; 
+        //console.log(checkedList);
+        //console.log(res.data);
+        //console.log(a);
+        //arr = res.data; 
         that.setData({
-          arr: arr
+          arr: res.data
         })
       }
-    })
-  
-    console.log(this.data.checkedList);
-    var flag = this.data.flag;
-    console.log(flag);
-    if(flag == true){
-      flag = false;
-    }else{
-      flag = true;
-    }
-    this.setData({
-      flag:flag
-    })
-    console.log(flag);
-
-    if(flag == false){
-        this.data.interval = setInterval(function(){
-        console.log(flag);
-        var num = Math.floor(Math.random()*that.data.arr.length);
-        var food = "";
-        if(that.data.arr != undefined && that.data.arr[num] != undefined){
-          food = that.data.arr[num].name;
-        }
-        that.setData({
-          food: food,
-          click: " 就吃这个吧 !"
-        })
-      },100)
-    }else{
-      console.log("clear");
-      this.setData({
-        click: "  试试运气！"
-      })
-      clearInterval(this.data.interval);
-    }
-  },
-
-  /**
-   * 复选框选中事件
-   * */
-  HandelItemChange(e){
-    // 获取被选中的复选框的值
-    const checkedList = e.detail.value;
-    this.setData({
-      checkedList:checkedList
     })
   },
 
@@ -137,7 +146,14 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+    // 读入数据库数据
+    const db = wx.cloud.database();
+    const food = db.collection('food');
+    const _ = db.command;
+    this.setData({
+      db_food:food,
+      _:_
+    })
   },
 
   /**
