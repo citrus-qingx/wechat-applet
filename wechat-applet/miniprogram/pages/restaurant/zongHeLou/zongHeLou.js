@@ -2,7 +2,8 @@ Page({
     data: {
         backgroundColor: "#e7edf3",
         fontColor: "black",
-        list:[]
+        list:[],
+        isLoading:true
     },
 
     onLoad: function (options) {
@@ -29,7 +30,8 @@ Page({
                 }
                 that.setData({
                     list:res.data,
-                    checked:tmp
+                    checked:tmp,
+                    isLoading:false
                 })
            }
         });

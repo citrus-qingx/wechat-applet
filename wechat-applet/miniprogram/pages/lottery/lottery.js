@@ -1,10 +1,4 @@
-// miniprogram/pages/lottery/lottery.js
 Page({
-  
-
-  /**
-   * 页面的初始数据
-   */
   data: {
     list:[
       {
@@ -45,7 +39,6 @@ Page({
    * button点击事件监听
    */
   clickStartButton: function(e) {
-
     var that = this;
     var flag = this.data.flag;
     this.setData({
@@ -67,10 +60,9 @@ Page({
               click: " 就吃这个吧 !"
             })
         }
-        console.log("Here");
-      },10)
+        // console.log("Here");
+      },50)
     }else{
-      //console.log("clear");
       this.setData({
         pic:"/images/HaveDinner.jpg",
         click: "  不满意，再来！"
@@ -98,17 +90,12 @@ Page({
      * 读入restraurant选择框数据
      */
     if(typeof(getApp().globalData.disableBusiness)==="undefined"){
-      getApp().globalData.disableBusiness=[];
-      getApp().globalData.disableBusiness[0] = [];
-      getApp().globalData.disableBusiness[1] = [];
-      getApp().globalData.disableBusiness[2] = [];
-      getApp().globalData.disableBusiness[3] = [];
+      getApp().globalData.disableBusiness=[[],[],[],[]];
     }
     var a = getApp().globalData.disableBusiness[0];
     var b = getApp().globalData.disableBusiness[1];
     var c = getApp().globalData.disableBusiness[2];
     var d = getApp().globalData.disableBusiness[3];
-    //console.log(getApp().globalData.disableBusiness);
     
     db_food.where({
       // 在复选框选中范围中

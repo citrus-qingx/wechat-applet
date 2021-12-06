@@ -28,7 +28,7 @@ page {
     width: 580rpx;
     height: 60rpx;
     padding: 60rpx;
-
+    padding-bottom: 70rpx;
     font-size: 50rpx;
     font-weight: 800;
     font-family: '幼圆';

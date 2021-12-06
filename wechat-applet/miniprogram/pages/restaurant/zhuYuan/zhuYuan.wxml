@@ -4,6 +4,10 @@
     </text>
 </view>
 
+<view class="loading" class="import" wx:if="{{isLoading}}">
+    <text style="font-size: medium; color:dimgray;">加载中...请稍侯...</text>
+</view>
+
 <view class="businessList">
     <checkbox-group bindchange="checkboxChange">
         <view class="business" wx:for="{{list}}" wx:key="id" style="background: {{backgroundColor}};">
