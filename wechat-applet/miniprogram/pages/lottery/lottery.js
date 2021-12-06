@@ -32,55 +32,48 @@ Page({
     food:"Emm..要吃什么捏",
     interval:"",
     arr :[],
-    flag: true,
+    flag: false,
     click: " 试试运气！",
     db_food:"",
     _:"",
     backgroundColor: "#ffffff",
     fontColor: "white",
-    testPic: "/images/测试图片.jpg"
+    pic: "/images/EatSomething.jpg"
   },
 
   /**
    * button点击事件监听
    */
   clickStartButton: function(e) {
-    //console.log("click");
-    var that = this;
-    //var db_food = this.data.db_food;
-    //var _ = this.data._;
 
-    //console.log(this.data.checkedList);
+    var that = this;
     var flag = this.data.flag;
-    //console.log(flag);
-    if(flag == true){
-      flag = false;
-    }else{
-      flag = true;
-    }
     this.setData({
-      flag:flag
+      flag:!flag
     })
-    //console.log(flag);
 
     if(flag == false){
-        this.data.interval = setInterval(function(){
-        //console.log(flag);
-        //console.log(that.data.arr);
+      this.data.interval = setInterval(function(){
         var num = Math.floor(Math.random()*that.data.arr.length);
         var food = "";
-        if(that.data.arr != undefined && that.data.arr[num] != undefined){
-          food = that.data.arr[num].name;
+        if(that.data.arr == undefined || that.data.arr[num] == undefined){
+          that.setData({
+            click: "请稍等..."
+          })
+        }else{
+            that.setData({
+              pic:"/images/SearchingFood.png",
+              food: that.data.arr[num].name,
+              click: " 就吃这个吧 !"
+            })
         }
-        that.setData({
-          food: food,
-          click: " 就吃这个吧 !"
-        })
-      },100)
+        console.log("Here");
+      },10)
     }else{
       //console.log("clear");
       this.setData({
-        click: "  试试运气！"
+        pic:"/images/HaveDinner.jpg",
+        click: "  不满意，再来！"
       })
       clearInterval(this.data.interval);
     }

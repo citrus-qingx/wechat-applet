@@ -2,7 +2,9 @@ Page({
     data: {
         backgroundColor: "#e7edf3",
         fontColor: "black",
-        list:[]
+        list:[],
+        wait: "加载中...请稍候...",
+        isLoading: true
     },
 
     onLoad: function (options) {
@@ -29,7 +31,8 @@ Page({
                 }
                 that.setData({
                     list:res.data,
-                    checked:tmp
+                    checked:tmp,
+                    isLoading:false
                 })
            }
         });
